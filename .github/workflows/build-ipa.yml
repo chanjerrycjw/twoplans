@@ -1,0 +1,77 @@
+# GitHub Actions：产出可直接给 TrollStore 安装的 IPA
+#
+# 用法：把本文件放到仓库根目录的 .github/workflows/build-ipa.yml
+#   （推荐：直接 cp ios/build-ipa.yml .github/workflows/build-ipa.yml，或用同级 publish-to-github.bat 一键推送）
+#
+# 关键点：
+#   1. macos-14 runner + XcodeGen 生成工程，xcodebuild 关闭签名 archive
+#   2. 用 ldid 对 Payload 内每个 Mach-O 做 ad-hoc 签名 —— 没有这一步，
+#      TrollStore 会因为 IPA 里是完全无签名的二进制而拒绝安装
+#   3. 打包后自动发到 Releases，手机 Safari 打开 Release 里的 ipa 链接就能直接下载安装
+#      （Release 附件不需要登录 GitHub，Actions artifact 需要登录才下得下来）
+
+name: Build IPA (TrollStore ready)
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: brew install xcodegen ldid
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+        working-directory: ios
+
+      - name: Archive without signing
+        run: xcodebuild clean archive -scheme TwoPlans -configuration Release -destination 'generic/platform=iOS' -archivePath build/TwoPlans.xcarchive CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO AD_HOC_CODE_SIGNING_ALLOWED=YES
+        working-directory: ios
+
+      - name: Assemble Payload
+        run: |
+          mkdir -p build/Payload
+          cp -r build/TwoPlans.xcarchive/Products/Applications/TwoPlans.app build/Payload/
+        working-directory: ios
+
+      - name: Ad-hoc sign with ldid (required by TrollStore)
+        run: |
+          APP=build/Payload/TwoPlans.app
+          find "$APP" -type f -perm -u+x | while read -r bin; do
+            if file "$bin" | grep -q 'Mach-O'; then
+              echo "signing: $bin"
+              ldid -S "$bin"
+            fi
+          done
+        working-directory: ios
+
+      - name: Package IPA
+        run: |
+          cd build
+          zip -r -y ../TwoPlans.ipa Payload
+        working-directory: ios
+
+      - name: Publish to Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: TwoPlans v${{ github.run_number }}
+          body: 自动构建，供 TrollStore / AppSync 安装的 ad-hoc 签名 IPA
+          files: ios/TwoPlans.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: TwoPlans-ipa
+          path: ios/TwoPlans.ipa

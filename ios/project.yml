@@ -1,0 +1,23 @@
+# XcodeGen 工程描述
+# 用法：在 ios/ 目录执行 `xcodegen generate` 生成 TwoPlans.xcodeproj
+name: TwoPlans
+options:
+  bundleIdPrefix: com.local
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  TwoPlans:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: TwoPlans
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.local.twoplans
+        PRODUCT_NAME: TwoPlans
+        INFOPLIST_FILE: TwoPlans/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "15.0"

@@ -1,0 +1,14 @@
+# CI 编译产物 / Xcode 工程生成物，不要进仓库
+ios/build/
+ios/*.xcarchive/
+ios/Payload/
+ios/*.ipa
+ios/TwoPlans.xcodeproj/
+ios/TwoPlans.xcworkspace/
+DerivedData/
+
+# 本机临时文件
+_thumbs/
+*.pyc
+__pycache__/
+.DS_Store

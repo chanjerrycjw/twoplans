@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="两个计划">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADJklEQVR42u3d0U3sQAyGUVfHK/0XQB1QAQtIYcb+fVb63hP73GiyeyXq/e3jU0qpDEFAS0BLQEtAC2gJaAloCWgJaAEtAS0BLQE9qJ8+ZgT0GKxPfcwa6LF4IQd6DWK4gT4OOOEagF4G2XUCPRqxewB6PAL3BfT4hbtXoP2w4f6BtkjzAPqh5flqcsdsyrLATppVWQ7YSbMrC4E6aYaVtAhIzbMMXknzLcNW0pzLkJU075o4XOjMfiRomO0gBjTMdhEDGmY7iQENM9QxoGGGOgY0zFDHgIYZ6hjQMEMdAxpmqGNAwwx1NGgwslCvAg0z1DGgHTUcPWJAwwx1NGgAHD3GgoYZaqAFdEfQMEN9au/lRVBJuy9PZyXtv2BWEmqgBTTM6uoBaAENs7q6AFpAw6yuPoAW0L+9YAvUaSPl6aykpzTQAhpmdfUCtIAGWqtAW5humSlPZyU9pYEW0I4b6nrsKE9nJT2lgRbQQGsFaAvSbUNAC2jHDXU9dgAtoIEW0BLQAvoSaItRB0tAC2igBbTUGbQXQnV8MQRaQAMtoCWgBTTQAhpoAQ20ckD7YUV+KZSAFtBAC2gvhvIf/IEW0BLQAhpoAe2bDg39hgNoAe3Yoa7HDaAFNNCKBu0crU52/Fk3xTydgRbQjh3qbMYfr1fM0xloAQ20VoCGWh2cAC2gfduhrkZq0r8+eToDLaCh1lQXQAtoqNXVA9ACGmp1dQC0gIZaXfd/HDTUezFHgPaUBvrk3iv55rQLM9ACGmp13nOlvyQo/0XwGmioYY4D7ejhqBEHGmqY40FD7agxGjTUMMeBhhrmONBQwxwHGmqY40BDDXMcaKhhjgMNNcxxoKG2izjQUNtBHGiozT4O9HeDBdu8x4KG2pzjQENtvnGgwTbPSNCvlgD27hmWhcCcNLuyHJCTZlWWBXLSfdamxW2EvW0eZZHuH+igxSYtd9O9rgX9l2VPXHjqfQH9MIDOCBLuAejLMG7imHKdQA+F/R+IOlwD0IBf/dgV0ONx2wnQY5GbNdB+2ADaEAS0BLQEtAS0gJaAloCWgJaAFtAS0BLQEtDSy74AQb/Yb/BzJsgAAAAASUVORK5CYII=">
+<title>两个计划</title>
+<style>
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --line:#e6e8f0; --text:#1c1f2b; --muted:#6b7280;
+  --accent:#4f46e5; --accent-soft:#eef2ff; --ok:#16a34a; --warn:#d97706;
+  --radius:16px; --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.06);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:20px 16px 56px}
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.topbar a{color:var(--muted);text-decoration:none;font-size:13px;border:1px solid var(--line);
+  background:var(--card);padding:6px 12px;border-radius:999px}
+.topbar a:hover{border-color:var(--accent);color:var(--accent)}
+.topbar .spacer{flex:1}
+
+.hero{background:linear-gradient(135deg,var(--card),var(--accent-soft));border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 4px;font-size:22px;letter-spacing:-.3px}
+.hero .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:20px;line-height:1.2;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+.bar{height:10px;background:#e9ebf3;border-radius:999px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .4s ease}
+.barlabel{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-top:16px;box-shadow:var(--shadow)}
+.card>h2{margin:0 0 2px;font-size:16px}
+.card>.hint{color:var(--muted);font-size:12px;margin:0 0 14px}
+.badge{display:inline-block;background:var(--accent-soft);color:var(--accent);border-radius:999px;
+  padding:3px 10px;font-size:12px;font-weight:600}
+
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line)}
+.checklist li:last-child{border-bottom:0}
+.checklist input{margin-top:4px;width:17px;height:17px;accent-color:var(--accent);flex:none}
+.checklist label{flex:1;cursor:pointer}
+.checklist input:checked + label{color:var(--muted);text-decoration:line-through}
+
+.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;
+  padding:9px 14px;font-size:14px;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mcard{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fcfcff}
+.mcard.now{border-color:var(--accent);background:var(--accent-soft)}
+.mcard .m-no{font-size:11px;color:var(--muted)}
+.mcard .m-title{font-size:13px;font-weight:600;margin-top:2px}
+.mcard .m-goal{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.mcard .m-pct{font-size:11px;color:var(--accent);margin-top:6px;font-variant-numeric:tabular-nums}
+
+.phases{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.phase{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fcfcff;font-size:13px}
+.phase b{display:block;font-size:12px;color:var(--muted);font-weight:500}
+
+.heat{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-top:6px}
+.heat i{aspect-ratio:1;border-radius:4px;background:#e9ebf3;display:block}
+.heat i.on{background:var(--accent)}
+.heat i.today{outline:2px solid var(--warn);outline-offset:1px}
+.heat-legend{font-size:11px;color:var(--muted);margin-top:8px}
+
+.blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.mini{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fcfcff}
+.mini b{font-size:13px}
+.mini ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:12px}
+.mini.now{border-color:var(--accent);background:var(--accent-soft)}
+.mini.now b{color:var(--accent)}
+
+.songs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.song{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fcfcff}
+.song .st{font-size:11px;color:var(--muted)}
+.song ul{margin:6px 0 0;padding-left:18px;font-size:13px}
+
+.tools{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.tools .btn{font-size:13px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+
+/* ---- iOS 版：两个 Tab ---- */
+.tabbar{display:none}
+.ios-shell .hero{border-radius:14px}
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:repeat(2,1fr)}
+  .months{grid-template-columns:repeat(2,1fr)}
+  .blocks,.phases,.songs{grid-template-columns:1fr}
+  .heat{grid-template-columns:repeat(14,1fr)}
+}
+body.ios{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+body.ios .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--line);z-index:20;
+  padding-bottom:env(safe-area-inset-bottom)}
+body.ios .tabbar button{flex:1;border:0;background:none;padding:11px 4px 13px;font-family:inherit;
+  font-size:11px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px}
+body.ios .tabbar button .dot{width:22px;height:22px;border-radius:7px;background:var(--line)}
+body.ios .tabbar button.on{color:var(--accent)}
+body.ios .tabbar button.on .dot{background:var(--accent)}
+body.ios .pane{display:none}
+body.ios .pane.active{display:block}
+body.ios .ios-title{position:sticky;top:0;background:rgba(246,247,251,.9);backdrop-filter:blur(12px);
+  z-index:10;padding:14px 16px 8px;margin:-20px -16px 12px;font-size:13px;color:var(--muted);font-weight:600}
+
+</style>
+</head>
+<body class="">
+<div class="wrap">
+
+<main id="app"></main>
+<footer>数据存在本机浏览器里，不联网不同步 · 换设备用「导出进度 / 导入进度」搬运</footer>
+</div>
+<script>
+/* 两个计划 · 共享数据
+ * 起算日：2026-09-25（与 D:\ai\2026-09-24\计划部署 里的 vbs 提醒脚本保持一致）
+ */
+
+const START_DATE = '2026-09-25';
+
+const PLANS = {
+  study: {
+    id: 'study',
+    title: '计算机基础一年成长计划',
+    sub: '360 个学习日 · 48 周 · 12 个月 · 约 1080 小时',
+    accent: '#4f46e5',
+    accentSoft: '#eef2ff',
+    totalDays: 360,
+    totalWeeks: 48,
+    unitSingular: '本周',
+    phases: [
+      { range: '第 1-3 月', desc: '夯实计算机基础' },
+      { range: '第 4-6 月', desc: '深入专业领域' },
+      { range: '第 7-9 月', desc: '项目实践与技能深化' },
+      { range: '第 10-12 月', desc: '求职准备与职业发展' }
+    ],
+    months: [
+      { m: 1, title: '计算机基础巩固', goal: '数据结构 / 操作系统 / 网络 / SQL', weeks: [
+        { w: 1, range: 'Day 1-7', title: '编程基础强化', items: [
+          '数组、链表、栈、队列 —— 手推一遍复杂度',
+          '排序、查找、递归 —— 各写一遍实现',
+          'LeetCode 简单题每天 3 题',
+          '面向对象：封装 / 继承 / 多态',
+          '设计模式初步：单例、工厂、策略',
+          '练手：图书管理系统面向对象设计',
+          'Day 7 周总结与复习'
+        ]},
+        { w: 2, range: 'Day 8-14', title: '计算机系统基础', items: [
+          '进程与线程管理：状态、调度、上下文切换',
+          '内存管理：虚拟内存、分页、页面置换',
+          '文件系统与 IO：inode、缓冲、阻塞/非阻塞',
+          'TCP/IP 协议栈：三次握手、四次挥手、滑动窗口',
+          'HTTP/HTTPS：状态码、缓存、TLS 握手',
+          'Socket 编程实践：写个 echo server',
+          'Day 14 周总结与复习'
+        ]},
+        { w: 3, range: 'Day 15-21', title: '数据库与开发工具', items: [
+          'SQL：多表连接、子查询、聚合',
+          '索引优化策略与最左前缀',
+          '执行计划分析（EXPLAIN）',
+          'Git 深入：rebase、cherry-pick、reflog',
+          'Linux 基础命令与 Shell 脚本入门',
+          '本机开发环境配齐并写文档',
+          'Day 21 周总结与复习'
+        ]},
+        { w: 4, range: 'Day 22-30', title: '项目实践与总结', items: [
+          '完整小项目：需求分析与架构设计',
+          '核心功能实现',
+          '测试与性能优化',
+          '写用户文档与技术文档',
+          '写部署说明',
+          '月度总结与下月规划'
+        ]}
+      ]},
+      { m: 2, title: 'Web 开发基础', goal: 'HTML/CSS/JS + 前后端联动', weeks: [
+        { w: 5, range: 'Day 31-37', title: '前端基础', items: [
+          'HTML5 语义化标签',
+          'CSS3 布局：Flex + Grid',
+          '响应式设计与移动端适配',
+          'JS 语法与数据类型',
+          'DOM 操作与事件流',
+          '异步编程基础：回调 / Promise',
+          'Day 37 周总结'
+        ]},
+        { w: 6, range: 'Day 38-44', title: 'JavaScript 进阶与框架入门', items: [
+          'ES6+ 新特性：解构、模块化、异步语法',
+          '模块化开发与打包思维',
+          '调试技巧与性能面板入门',
+          'React 或 Vue 二选一学基础',
+          '组件化开发思想',
+          '状态管理入门',
+          'Day 44 周总结'
+        ]},
+        { w: 7, range: 'Day 45-51', title: '后端基础', items: [
+          'HTTP 协议深入：幂等、缓存协商、跨域',
+          'RESTful API 设计与规范',
+          'Web 服务器配置与反向代理',
+          'Node.js / Python / Java 选一门深入',
+          '后端框架入门：路由与中间件',
+          '数据库连接与 ORM 基础',
+          'Day 51 周总结'
+        ]},
+        { w: 8, range: 'Day 52-60', title: 'Web 项目实践', items: [
+          '全栈小项目：前后端分离架构',
+          'API 设计与实现',
+          '前端页面开发与联调',
+          '性能优化：首屏、缓存、压缩',
+          '安全：XSS / CSRF / SQL 注入防护',
+          '部署上线并写复盘',
+          '月度总结'
+        ]}
+      ]},
+      { m: 3, title: '数据库与系统设计', goal: '建模能力 + 架构直觉', weeks: [
+        { w: 9, range: 'Day 61-67', title: '数据库进阶', items: [
+          '查询优化技巧：覆盖索引、分页、慢查询',
+          '索引策略与代价评估',
+          '事务与隔离级别、锁',
+          'MongoDB 文档建模',
+          'Redis 数据结构与典型用法',
+          '缓存策略：穿透 / 击穿 / 雪崩',
+          'Day 67 周总结'
+        ]},
+        { w: 10, range: 'Day 68-74', title: '系统设计基础', items: [
+          '分层架构与依赖倒置',
+          '微服务概念与拆分边界',
+          '设计模式在业务中的应用',
+          '缓存策略与一致性',
+          '负载均衡：轮询 / 一致性哈希',
+          '数据库读写分离与分库分表概念',
+          'Day 74 周总结'
+        ]},
+        { w: 11, range: 'Day 75-81', title: 'DevOps 基础', items: [
+          'Docker 容器化：镜像、卷、网络',
+          'Docker Compose 编排多服务',
+          'CI/CD 流水线设计与落地',
+          '日志与监控接入',
+          '云服务选一家开账号做实验',
+          '云原生概念与成本意识',
+          'Day 81 周总结'
+        ]},
+        { w: 12, range: 'Day 82-90', title: '综合项目', items: [
+          '选题：做一个有点难度的完整 Web 应用',
+          '技术选型与理由写清楚',
+          '架构设计与数据建模',
+          '编码实现',
+          '单元测试 + 集成测试',
+          '季度总结与规划'
+        ]}
+      ]},
+      { m: 4, title: '移动开发基础', goal: 'iOS / Android / 跨平台', weeks: [
+        { w: 13, range: 'Day 91-97', title: '移动开发概述', items: [
+          '移动端生态与平台差异',
+          '开发环境搭建',
+          '响应式与自适应设计原则',
+          'React Native 基础',
+          'Flutter 基础',
+          '性能权衡：原生 vs 跨端',
+          'Day 97 周总结'
+        ]},
+        { w: 14, range: 'Day 98-104', title: '原生开发入门', items: [
+          'Swift 语言基础',
+          'UIKit / SwiftUI 基础',
+          'iOS 开发工具与调试',
+          'Kotlin 基础',
+          'Android SDK 与 UI 组件',
+          '两边各跑通一个 Hello World + 列表页',
+          'Day 104 周总结'
+        ]},
+        { w: 15, range: 'Day 105-111', title: '移动应用开发', items: [
+          'MVVM 架构落地',
+          '数据绑定与状态管理',
+          '生命周期管理',
+          '网络请求与错误兜底',
+          '本地存储：偏好 / 数据库',
+          '基础权限与传感器使用',
+          'Day 111 周总结'
+        ]},
+        { w: 16, range: 'Day 112-120', title: '移动项目实践', items: [
+          '完整 App：需求分析与 UI 设计',
+          '功能开发与联调',
+          '单元测试与 UI 测试',
+          '性能优化：启动、内存、流畅度',
+          '月度总结'
+        ]}
+      ]},
+      { m: 5, title: '前端进阶', goal: '工程化 + 性能', weeks: [
+        { w: 17, range: 'Day 121-127', title: '框架深入', items: [
+          '高级组件开发：插槽 / 高阶组件 / hooks',
+          '状态管理进阶',
+          '路由管理与权限',
+          'UI 组件库二次封装',
+          '主题定制与设计token',
+          'Day 127 周总结'
+        ]},
+        { w: 18, range: 'Day 128-134', title: '前端工程化', items: [
+          'Webpack 配置从零写一遍',
+          'Vite 上手并对比',
+          '代码分割与懒加载',
+          'ESLint + Prettier 落地',
+          '单元测试与覆盖率',
+          'Day 134 周总结'
+        ]},
+        { w: 19, range: 'Day 135-141', title: '前端性能优化', items: [
+          '加载优化：资源压缩、CDN、预加载',
+          '渲染优化：重排重绘、虚拟列表',
+          '代码优化与包体积治理',
+          '性能监控接入',
+          '错误追踪与 sourcemap',
+          '用户行为埋点基础',
+          'Day 141 周总结'
+        ]},
+        { w: 20, range: 'Day 142-150', title: '前端项目实践', items: [
+          '大型前端项目架构设计',
+          '自研组件库',
+          '状态管理方案选型落地',
+          '性能压测与优化实施',
+          '效果评估与复盘',
+          '月度总结'
+        ]}
+      ]},
+      { m: 6, title: '后端进阶', goal: '框架 / 数据库 / 微服务', weeks: [
+        { w: 21, range: 'Day 151-157', title: '后端框架深入', items: [
+          'Spring Boot / Django / Express 选一个深入',
+          '中间件与拦截机制开发',
+          '插件系统或模块化设计',
+          'RESTful API 设计规范落地',
+          'GraphQL 基础实践',
+          'API 文档自动生成',
+          'Day 157 周总结'
+        ]},
+        { w: 22, range: 'Day 158-164', title: '数据库进阶', items: [
+          '高级查询：窗口函数、CTE',
+          '事务处理与死锁排查',
+          '数据库设计模式',
+          'MongoDB 高级特性：聚合管道',
+          'Redis 高级应用：分布式锁、限流',
+          '数据库选型方法论',
+          'Day 164 周总结'
+        ]},
+        { w: 23, range: 'Day 165-171', title: '微服务架构', items: [
+          '服务拆分原则与边界上下文',
+          '服务间通信：REST / MQ / gRPC',
+          '负载均衡与服务发现',
+          '配置中心',
+          '熔断降级与限流',
+          '链路追踪基础',
+          'Day 171 周总结'
+        ]},
+        { w: 24, range: 'Day 172-180', title: '后端项目实践', items: [
+          '微服务小项目：需求与拆分',
+          '开发与联调',
+          '单元 / 契约 / 集成测试',
+          '容器化部署',
+          '半年总结与规划'
+        ]}
+      ]},
+      { m: 7, title: '测试与质量保证', goal: '工程质量的肌肉', weeks: [
+        { w: 25, range: 'Day 181-187', title: '测试基础', items: [
+          '测试类型与测试金字塔',
+          '测试方法：等价类、边界值',
+          '测试流程与缺陷生命周期',
+          'JUnit / pytest 上手',
+          '测试覆盖率统计',
+          'Mock 与 Stub',
+          'Day 187 周总结'
+        ]},
+        { w: 26, range: 'Day 188-194', title: '集成测试', items: [
+          '集成测试策略',
+          'API 测试：Postman / 自动化脚本',
+          '数据库测试与数据夹具',
+          '端到端测试：Selenium / Cypress',
+          '测试框架封装',
+          'CI 里接自动化测试',
+          'Day 194 周总结'
+        ]},
+        { w: 27, range: 'Day 195-201', title: '性能测试', items: [
+          '性能测试工具与指标定义',
+          '测试场景设计',
+          'JMeter（或 k6）实操',
+          '压力测试与瓶颈定位',
+          '性能调优措施验证',
+          'Day 201 周总结'
+        ]},
+        { w: 28, range: 'Day 202-210', title: '质量保证实践', items: [
+          '为一个项目写完整测试计划',
+          '测试用例设计与评审',
+          '测试执行与记录',
+          '缺陷跟踪与分析',
+          '输出质量报告',
+          '月度总结'
+        ]}
+      ]},
+      { m: 8, title: '安全与运维', goal: '能扛线上的系统观', weeks: [
+        { w: 29, range: 'Day 211-217', title: 'Web 安全基础', items: [
+          'OWASP Top 10 逐条过',
+          '注入、XSS、CSRF、越权的原理与防御',
+          '认证与会话管理：JWT / OAuth2',
+          '安全编码规范',
+          '渗透测试基础（只在自己环境练）',
+          '漏洞扫描与依赖审计',
+          'Day 217 周总结'
+        ]},
+        { w: 30, range: 'Day 218-224', title: '运维基础', items: [
+          'Linux 系统监控：CPU / IO / 网络',
+          '日志管理与轮转',
+          '性能调优与容量评估',
+          '网络配置与排错',
+          '防火墙与安全组',
+          '负载均衡配置实操',
+          'Day 224 周总结'
+        ]},
+        { w: 31, range: 'Day 225-231', title: 'DevOps 实践', items: [
+          'Jenkins / GitLab CI 流水线',
+          '自动化部署与灰度',
+          '多环境管理',
+          'Docker 进阶：分层、多阶段构建',
+          'Kubernetes 基础概念与部署',
+          '容器编排实操',
+          'Day 231 周总结'
+        ]},
+        { w: 32, range: 'Day 232-240', title: '监控与告警', items: [
+          'Prometheus + Grafana 搭一套',
+          '日志收集链路',
+          '性能监控指标定义',
+          '告警规则设计',
+          '通知渠道与值班机制',
+          '故障复盘文档模板',
+          '季度总结'
+        ]}
+      ]},
+      { m: 9, title: '数据科学与 AI', goal: '把 AI 用起来', weeks: [
+        { w: 33, range: 'Day 241-247', title: 'Python 数据分析', items: [
+          'NumPy 数组运算',
+          'Pandas 数据清洗',
+          '探索性数据分析流程',
+          'Matplotlib / Seaborn 作图',
+          '可视化表达技巧',
+          'Dash 或 Plotly 做交互图表',
+          'Day 247 周总结'
+        ]},
+        { w: 34, range: 'Day 248-254', title: '机器学习基础', items: [
+          '监督学习：回归与分类',
+          '无监督学习：聚类与降维',
+          '模型评估：交叉验证、指标选择',
+          'Scikit-learn 实操',
+          '特征工程实践',
+          '模型调参与过拟合处理',
+          'Day 254 周总结'
+        ]},
+        { w: 35, range: 'Day 255-261', title: '深度学习入门', items: [
+          '神经网络基础与反向传播',
+          'PyTorch 或 TensorFlow 上手',
+          '训练流程与调参',
+          '图像识别小任务',
+          'NLP 小任务',
+          '推理与部署方式',
+          'Day 261 周总结'
+        ]},
+        { w: 36, range: 'Day 262-270', title: 'AI 项目实践', items: [
+          '选题：做一个小而完整的 AI 项目',
+          '数据准备与标注',
+          '模型开发与训练',
+          '性能优化与部署',
+          '效果评估与报告',
+          '月度总结'
+        ]}
+      ]},
+      { m: 10, title: '求职准备', goal: '把能力换成机会', weeks: [
+        { w: 37, range: 'Day 271-277', title: '简历与作品集', items: [
+          '简历撰写：一页纸 + 数据化成果',
+          '项目经验整理成 STAR 结构',
+          '技能清单与技术关键词',
+          'GitHub 主页整理（README / pin）',
+          '项目文档补齐',
+          '在线作品集页面上线',
+          'Day 277 周总结'
+        ]},
+        { w: 38, range: 'Day 278-284', title: '面试准备', items: [
+          '算法题：高频 100 题刷两遍',
+          '系统设计题：套路与口述练习',
+          '项目经验的深挖问答准备',
+          '行为面试 STAR 法则',
+          '常见问题的回答稿',
+          '模拟面试至少 3 场',
+          'Day 284 周总结'
+        ]},
+        { w: 39, range: 'Day 285-291', title: '行业研究', items: [
+          '技术趋势与岗位需求调研',
+          '目标公司清单与研究',
+          '岗位 JD 逐条对照自身差距',
+          '职业发展路径选择',
+          '针对性补强计划',
+          '短期与长期目标设定',
+          'Day 291 周总结'
+        ]},
+        { w: 40, range: 'Day 292-300', title: '求职实战', items: [
+          '职位筛选与优先级排序',
+          '投递准备与渠道铺开',
+          '面试安排与时间管理',
+          '每场面试写复盘',
+          '经验总结与改进',
+          '半年总结'
+        ]}
+      ]},
+      { m: 11, title: '专业深化', goal: '做出可证明的深度', weeks: [
+        { w: 41, range: 'Day 301-307', title: '方向选择', items: [
+          '方向调研：前端 / 后端 / 全栈 / 数据',
+          '对照自身兴趣与市场下决定',
+          '专业技能深度提升计划',
+          '行业知识补充',
+          '最佳实践与工程范式掌握',
+          'Day 307 周总结'
+        ]},
+        { w: 42, range: 'Day 308-315', title: '深度项目', items: [
+          '专业方向项目立项',
+          '技术选型与架构设计',
+          '核心难点攻克',
+          '功能扩展与打磨',
+          '性能优化',
+          '文档完善',
+          'Day 315 周总结'
+        ]},
+        { w: 43, range: 'Day 316-322', title: '开源与影响力', items: [
+          '选一个开源项目开始跟进',
+          '提第一个 PR（哪怕改文档）',
+          '文档改进与 issue 答疑',
+          '写 2 篇技术博客',
+          '做一次技术分享',
+          '参与社区讨论',
+          'Day 322 周总结'
+        ]},
+        { w: 44, range: 'Day 323-330', title: '专业认证', items: [
+          '认证选型：性价比与含金量评估',
+          '学习计划制定',
+          '模拟考试摸底',
+          '报名与备考冲刺',
+          '参加考试拿证',
+          '月度总结'
+        ]}
+      ]},
+      { m: 12, title: '总结与展望', goal: '收网，并定下一个一年', weeks: [
+        { w: 45, range: 'Day 331-337', title: '年度总结', items: [
+          '技能提升自评（对照起点的差距）',
+          '项目成果清单整理',
+          '学习经验与方法沉淀',
+          '目标达成情况量化',
+          '挑战与收获复盘',
+          '改进方向明确',
+          'Day 337 周总结'
+        ]},
+        { w: 46, range: 'Day 338-344', title: '下一年规划', items: [
+          '新目标：技能 / 项目 / 职业',
+          '学习路径规划',
+          '资源准备',
+          '时间安排与节奏设计',
+          'Day 344 周总结'
+        ]},
+        { w: 47, range: 'Day 345-351', title: '知识体系完善', items: [
+          '构建自己的知识树',
+          '薄弱环节专项补强',
+          '知识图谱整理成文档',
+          '高效学习技巧总结',
+          '时间管理优化',
+          '学习习惯固化',
+          'Day 351 周总结'
+        ]},
+        { w: 48, range: 'Day 352-360', title: '未来展望', items: [
+          '职业路径规划（3 年视野）',
+          '技能发展路线图',
+          '长期目标设定',
+          '软技能与沟通提升',
+          '年度总结与新年规划',
+          '给明年的自己写一段话'
+        ]}
+      ]}
+    ]
+  },
+
+  sing: {
+    id: 'sing',
+    title: '零基础流行音乐一年计划',
+    sub: '每天 20-60 分钟 · 12 个月 · 从腹式呼吸到完整表演',
+    accent: '#db2777',
+    accentSoft: '#fdf2f8',
+    totalDays: 365,
+    totalWeeks: 48,
+    unitSingular: '本周',
+    phases: [
+      { range: '第 1-3 月', desc: '基础入门 · 技能提升 · 技巧巩固' },
+      { range: '第 4-6 月', desc: '进阶提升：音质 / 技巧 / 风格' },
+      { range: '第 7-9 月', desc: '表现力强化：情感 / 即兴 / 舞台' },
+      { range: '第 10-12 月', desc: '综合提升：积累 / 创作 / 表演' }
+    ],
+    months: [
+      { m: 1, title: '基础入门', blocks: [
+        { label: '第 1 周', weeks: [1], min: '20-30 分钟', title: '建立基础认知', goal: '学会腹式呼吸和正确站姿', items: [
+          '热身 5 分钟：轻轻哼唱，放松喉咙',
+          '姿势 5 分钟：双脚与肩同宽，挺胸抬头，肩膀放松',
+          '呼吸 10 分钟：吸气时肚子鼓起，呼气时肚子收缩',
+          '音阶 5 分钟：do-re-mi-fa-sol',
+          '理解：气息是声音的底座，不是嗓子用力'
+        ]},
+        { label: '第 2 周', weeks: [2], min: '25-35 分钟', title: '音准训练', goal: '能准确唱出音高', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '音准 15 分钟：用钢琴或 APP 辅助跟唱音阶',
+          '节奏 10 分钟：拍手打 4/4 拍',
+          '重点：do-re-mi-fa-sol-la-si 全音阶'
+        ]},
+        { label: '第 3 周', weeks: [3], min: '30-40 分钟', title: '发声基础', goal: '找到共鸣，不喊叫', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '发声 15 分钟：元音练习 啊-哦-咦-呜',
+          '音准 10 分钟',
+          '练歌 5 分钟：《小星星》',
+          '重点：用气息支撑声音，喉咙不使劲'
+        ]},
+        { label: '第 4 周', weeks: [4], min: '35-45 分钟', title: '第一首完整歌曲', goal: '完整唱完一首歌', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '发声 10 分钟',
+          '练歌 20 分钟：《生日快乐》或《小星星》流行版',
+          '录音自评：找出跑调和断气的地方',
+          '重点：建立自信心'
+        ]}
+      ]},
+      { m: 2, title: '技能提升', blocks: [
+        { label: '第 5-6 周', weeks: [5, 6], min: '40-50 分钟', title: '音域扩展', goal: '扩展音域，提高控制力', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '音阶 15 分钟：向高低两端扩展',
+          '技巧 15 分钟：跳音（弹性）+ 连音（连贯）',
+          '练歌 10 分钟',
+          '重点：高音和低音的过渡不要破音'
+        ]},
+        { label: '第 7-8 周', weeks: [7, 8], min: '45-60 分钟', title: '流行歌曲入门', goal: '唱出流行味', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '技巧 15 分钟',
+          '练歌 30 分钟：《童话》《隐形的翅膀》简化版',
+          '重点：流行歌的咬字与情感表达',
+          '重点：提升演唱流畅度'
+        ]}
+      ]},
+      { m: 3, title: '技巧巩固', blocks: [
+        { label: '第 9-10 周', weeks: [9, 10], min: '45-60 分钟', title: '情感表达', goal: '用情感演绎歌曲', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '技巧 10 分钟',
+          '情感 15 分钟：同一句唱出不同情绪对比',
+          '练歌 25 分钟',
+          '重点：理解歌词含义，做强弱层次'
+        ]},
+        { label: '第 11-12 周', weeks: [11, 12], min: '50-60 分钟', title: '舞台表现', goal: '站得住唱得稳', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '表现力 15 分钟：动作与表情',
+          '练歌 30 分钟',
+          '录音 5 分钟：回听并改进',
+          '重点：练习眼神交流，别低头看地'
+        ]}
+      ]},
+      { m: 4, title: '音质改善', blocks: [
+        { label: '整月', weeks: [13, 14, 15, 16], min: '50-60 分钟', title: '胸腔与口腔共鸣', goal: '声音变亮变圆润', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '共鸣 15 分钟：胸腔共鸣 + 口腔共鸣',
+          '音质 15 分钟：明亮度与圆润度',
+          '练歌 20 分钟',
+          '录音对比：和第 3 月的录音做 A/B 对比'
+        ]}
+      ]},
+      { m: 5, title: '技巧深化', blocks: [
+        { label: '整月', weeks: [17, 18, 19, 20], min: '50-60 分钟', title: '颤音 / 滑音 / 假声', goal: '掌握三种装饰技巧', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '技巧 20 分钟：颤音、滑音、真假声转换',
+          '练歌 25 分钟',
+          '重点：假声不要用嗓子挤'
+        ]}
+      ]},
+      { m: 6, title: '风格适应', blocks: [
+        { label: '整月', weeks: [21, 22, 23, 24], min: '50-60 分钟', title: '多风格切换', goal: '能适应不同流行风格', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '风格 20 分钟：抒情 / 节奏 / R&B 切换练习',
+          '练歌 25 分钟',
+          '每月至少学会 2 首不同风格的新歌'
+        ]}
+      ]},
+      { m: 7, title: '情感深度', blocks: [
+        { label: '整月', weeks: [25, 26, 27, 28], min: '50-60 分钟', title: '深度情感表达', goal: '唱进人心里', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '情感 20 分钟：强弱、气息、咬字的细节处理',
+          '练歌 25 分钟',
+          '挑一首歌做到「每次唱都有画面」'
+        ]}
+      ]},
+      { m: 8, title: '即兴演唱', blocks: [
+        { label: '整月', weeks: [29, 30, 31, 32], min: '50-60 分钟', title: '简单即兴', goal: '敢自由发挥', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '即兴 20 分钟：跟着伴奏做简单转音与加花',
+          '练歌 25 分钟',
+          '录音留存：每月录一段即兴做对比'
+        ]}
+      ]},
+      { m: 9, title: '舞台经验', blocks: [
+        { label: '整月', weeks: [33, 34, 35, 36], min: '50-60 分钟', title: '模拟表演', goal: '面对观众不虚', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '舞台 20 分钟：完整走一遍包括上下场',
+          '练歌 25 分钟',
+          '本月至少在真人面前唱一次'
+        ]}
+      ]},
+      { m: 10, title: '歌曲积累', blocks: [
+        { label: '整月', weeks: [37, 38, 39, 40], min: '50-60 分钟', title: '曲库扩充', goal: '随时能唱出一串歌', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '技巧 10 分钟',
+          '练歌 35 分钟：本月新学 3-4 首',
+          '整理一份自己的「能完整唱完」歌单'
+        ]}
+      ]},
+      { m: 11, title: '创作尝试', blocks: [
+        { label: '整月', weeks: [41, 42, 43, 44], min: '50-60 分钟', title: '简单旋律创作', goal: '写出自己的句子', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '创作 20 分钟：给一段和弦写旋律',
+          '练歌 25 分钟',
+          '本月产出 1 段完整旋律（录音或记谱）'
+        ]}
+      ]},
+      { m: 12, title: '表演展示', blocks: [
+        { label: '整月', weeks: [45, 46, 47, 48], min: '50-60 分钟', title: '完整表演', goal: '自信登台', items: [
+          '热身 5 分钟',
+          '呼吸 5 分钟',
+          '表演 20 分钟：连唱 2-3 首不停顿',
+          '练歌 25 分钟',
+          '安排一次正式表演（朋友聚会 / 线上录制）',
+          '年度录音对比：第 1 周 vs 现在'
+        ]}
+      ]}
+    ],
+    weekday: [
+      { d: 1, name: '基础训练日', items: ['热身 5 分钟', '呼吸练习 10 分钟', '音准练习 15 分钟', '发声练习 10 分钟'] },
+      { d: 2, name: '技巧训练日', items: ['热身 5 分钟', '呼吸练习 5 分钟', '技巧练习 20 分钟', '歌曲练习 15 分钟'] },
+      { d: 3, name: '歌曲练习日', items: ['热身 5 分钟', '呼吸练习 5 分钟', '歌曲练习 35 分钟', '录音自评 5 分钟'] },
+      { d: 4, name: '表现力训练日', items: ['热身 5 分钟', '呼吸练习 5 分钟', '表现力练习 20 分钟', '歌曲练习 20 分钟'] },
+      { d: 5, name: '综合练习日', items: ['热身 5 分钟', '呼吸练习 5 分钟', '综合练习 30 分钟', '歌曲练习 15 分钟'] },
+      { d: 6, name: '自由练习日', items: ['热身 5 分钟', '自由练习 40 分钟', '录音对比 5 分钟'] },
+      { d: 0, name: '休息日', items: ['轻松哼唱 15 分钟', '听歌学习 30 分钟', '充分休息'] }
+    ],
+    songs: [
+      { stage: '第 1-2 个月 · 入门级', list: ['小星星（流行版）', '生日快乐', '两只老虎', '茉莉花', '送别'] },
+      { stage: '第 3-4 个月 · 初级', list: ['童话（简单版）', '隐形的翅膀（简化版）', '月亮代表我的心', '朋友', '童年'] },
+      { stage: '第 5-6 个月 · 中级', list: ['青花瓷', '红豆', '后来', '突然好想你', '演员'] },
+      { stage: '第 7-9 个月 · 中高级', list: ['夜空中最亮的星', '成都', '告白气球', '稻香', '晴天'] },
+      { stage: '第 10-12 个月 · 高级', list: ['我的未来不是梦', '青藏高原', '死了都要爱', '泡沫', '光年之外'] }
+    ],
+    checkpoints: [
+      { stage: '第 1 个月', items: ['能正确使用腹式呼吸', '能准确唱出基本音阶', '能完整演唱 1-2 首简单歌曲', '建立每日练习习惯'] },
+      { stage: '第 2 个月', items: ['音域有扩展', '掌握基本发声技巧', '能演唱 2-3 首流行歌', '音准感明显提升'] },
+      { stage: '第 3 个月', items: ['能做简单情感表达', '舞台表现力提升', '能演唱 3-4 首流行歌', '录音质量明显改善'] },
+      { stage: '第 4-6 个月', items: ['音质得到改善', '掌握多种演唱技巧', '能适应不同流行风格', '能演唱 5-8 首流行歌'] },
+      { stage: '第 7-9 个月', items: ['情感表达大幅提升', '能简单即兴', '有舞台经验', '能演唱 8-12 首流行歌'] },
+      { stage: '第 10-12 个月', items: ['歌曲积累丰富', '能尝试简单创作', '表演技巧成熟', '能演唱 12-15 首流行歌'] }
+    ]
+  }
+};
+
+/* 两个计划 · 通用引擎与渲染
+ * 纯原生 JS，无依赖。数据全部存在浏览器 localStorage 里。
+ */
+
+/* ---------- 日期引擎 ---------- */
+function parseYMD(s){const p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+function ymd(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+function diffDays(a,b){return Math.round((startOfDay(b)-startOfDay(a))/86400000);}
+
+function today() { return new Date(); }
+
+function snap(plan){
+  const start = parseYMD(START_DATE);
+  const now = startOfDay(today());
+  const rawDiff = diffDays(start, now) + 1;      // 起算日为第 1 天
+  const day = Math.min(Math.max(rawDiff, 1), plan.totalDays);
+  const finished = rawDiff > plan.totalDays;
+  const week = Math.min(Math.ceil(day / 7), plan.totalWeeks);
+  const month = Math.min(Math.ceil(week / 4), 12);
+  return { start, day, week, month, finished, todayStr: ymd(now), weekday: now.getDay() };
+}
+
+/* ---------- 定位当前模块 ---------- */
+function currentBlock(plan, s){
+  if(plan.id === 'study'){
+    const mi = Math.min(s.month - 1, 11);
+    const wi = (s.week - 1) % 4;
+    const month = plan.months[mi];
+    return { month, block: month.weeks[wi], type: 'week' };
+  }
+  const mi = Math.min(s.month - 1, 11);
+  const month = plan.months[mi];
+  let bi = 0;
+  if(s.week <= 4) bi = s.week - 1;
+  else if(s.week <= 8) bi = 4 + Math.floor((s.week - 5) / 2);
+  else if(s.week <= 12) bi = 6 + Math.floor((s.week - 9) / 2);
+  else bi = 8 + (Math.min(s.month, 12) - 4);
+  bi = Math.min(bi, month.blocks.length - 1);
+  return { month, block: month.blocks[bi], type: 'block' };
+}
+
+function allItemKeys(plan){
+  const keys = [];
+  plan.months.forEach(m => {
+    const groups = m.weeks || m.blocks || [];
+    groups.forEach((g, gi) => {
+      (g.items || []).forEach((_, ii) => keys.push(plan.id + ':' + m.m + ':' + gi + ':' + ii));
+    });
+  });
+  if(plan.weekday) plan.weekday.forEach((d, di) => d.items.forEach((_, ii) => keys.push(plan.id + ':wd:' + di + ':' + ii)));
+  if(plan.checkpoints) plan.checkpoints.forEach((c, ci) => c.items.forEach((_, ii) => keys.push(plan.id + ':cp:' + ci + ':' + ii)));
+  return keys;
+}
+
+/* ---------- 存储 ---------- */
+const LS_DONE = 'tp:%id:done', LS_IN = 'tp:%id:checkin';
+function loadDone(id){ try{ return new Set(JSON.parse(localStorage.getItem(LS_DONE.replace('%id', id)) || '[]')); }catch(e){ return new Set(); } }
+function saveDone(id, set){ localStorage.setItem(LS_DONE.replace('%id', id), JSON.stringify([...set])); }
+function loadIn(id){ try{ return new Set(JSON.parse(localStorage.getItem(LS_IN.replace('%id', id)) || '[]')); }catch(e){ return new Set(); } }
+function saveIn(id, set){ localStorage.setItem(LS_IN.replace('%id', id), JSON.stringify([...set])); }
+
+function streak(set){
+  let n = 0;
+  const d = startOfDay(today());
+  while(set.has(ymd(d))){ n++; d.setDate(d.getDate() - 1); }
+  const y = startOfDay(today()); y.setDate(y.getDate() - 1);
+  if(n === 0 && set.has(ymd(y))){ while(set.has(ymd(y))){ n++; y.setDate(y.getDate() - 1); } }
+  return n;
+}
+
+/* ---------- 小工具 ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function pct(a, b){ return b === 0 ? 0 : Math.round(a / b * 100); }
+
+/* ---------- 渲染一个计划 ---------- */
+function renderPlan(plan){
+  const s = snap(plan);
+  const done = loadDone(plan.id);
+  const ins = loadIn(plan.id);
+  const cur = currentBlock(plan, s);
+  const checkedIn = ins.has(s.todayStr);
+  const totalItems = allItemKeys(plan).length;
+
+  // 月度完成率
+  const monthStat = plan.months.map(m => {
+    const groups = m.weeks || m.blocks || [];
+    let t = 0, d = 0;
+    groups.forEach((g, gi) => (g.items || []).forEach((_, ii) => {
+      t++; if(done.has(plan.id + ':' + m.m + ':' + gi + ':' + ii)) d++;
+    }));
+    return { m: m.m, t, d, p: pct(d, t) };
+  });
+
+  const curItems = (cur.block.items || []).map((txt, i) => {
+    const key = plan.id + ':' + cur.month.m + ':' +
+      ((plan.id === 'study' ? cur.month.weeks : cur.month.blocks).indexOf(cur.block)) + ':' + i;
+    return { txt, key, done: done.has(key) };
+  });
+
+  // 热力图：最近 8 周（56 天）
+  let heat = '';
+  const end = startOfDay(today());
+  const begin = new Date(end); begin.setDate(begin.getDate() - 55);
+  for(let i = 0; i < 56; i++){
+    const d = new Date(begin); d.setDate(begin.getDate() + i);
+    const k = ymd(d);
+    const cls = ['', ins.has(k) ? 'on' : '', k === s.todayStr ? 'today' : ''].filter(Boolean).join(' ');
+    heat += '<i class="' + cls + '" title="' + k + '"></i>';
+  }
+
+  const wdToday = plan.weekday ? plan.weekday.find(w => w.d === s.weekday) : null;
+
+  const singExtra = plan.id === 'sing' ? `
+    <div class="card">
+      <h2>今天 · ${esc(wdToday ? wdToday.name : '')}</h2>
+      <p class="hint">按星期安排的练习菜单（周一~周日轮转）</p>
+      <ul class="checklist">
+        ${wdToday ? wdToday.items.map((t, i) => {
+          const k = plan.id + ':wd:' + plan.weekday.indexOf(wdToday) + ':' + i;
+          return `<li><input type="checkbox" data-key="${k}" ${done.has(k) ? 'checked' : ''}><label>${esc(t)}</label></li>`;
+        }).join('') : ''}
+      </ul>
+    </div>
+    <div class="card">
+      <h2>曲目推荐</h2>
+      <p class="hint">当前在 ${esc(plan.songs[Math.min(s.month - 1, plan.songs.length - 1)].stage)}</p>
+      <div class="songs">
+        ${plan.songs.map((g, gi) => `
+          <div class="song${Math.min(s.month - 1, plan.songs.length - 1) === gi ? ' now' : ''}">
+            <div class="st">${esc(g.stage)}</div>
+            <ul>${g.list.map(x => '<li>' + esc(x) + '</li>').join('')}</ul>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <h2>月度检查点</h2>
+      <p class="hint">每个阶段结束前回头勾一遍，没勾满说明还得练</p>
+      <div class="blocks">
+        ${plan.checkpoints.map((c, ci) => `
+          <div class="mini${Math.min(Math.ceil(s.month / 3), plan.checkpoints.length) - 1 === ci ? ' now' : ''}">
+            <b>${esc(c.stage)}</b>
+            <ul>${c.items.map((t, i) => {
+              const k = plan.id + ':cp:' + ci + ':' + i;
+              return `<li style="list-style:none;margin-left:-14px"><label style="display:flex;gap:6px;align-items:flex-start">
+                <input type="checkbox" data-key="${k}" ${done.has(k) ? 'checked' : ''} style="margin-top:4px">
+                <span>${esc(t)}</span></label></li>`;
+            }).join('')}</ul>
+          </div>`).join('')}
+      </div>
+    </div>` : '';
+
+  const html = `
+    <div class="hero">
+      <h1>${esc(plan.title)}</h1>
+      <div class="sub">${esc(plan.sub)} · 起算日 ${START_DATE}</div>
+      <div class="hero-grid">
+        <div class="stat"><b>${s.day}</b><span>今天是第几天</span></div>
+        <div class="stat"><b>${s.week}</b><span>第几周</span></div>
+        <div class="stat"><b>${s.month}</b><span>第几月</span></div>
+        <div class="stat"><b>${streak(ins)}</b><span>连续打卡（天）</span></div>
+      </div>
+      <div class="bar"><i style="width:${Math.round(s.day / plan.totalDays * 100)}%"></i></div>
+      <div class="barlabel"><span>总进度 ${Math.round(s.day / plan.totalDays * 100)}%（${s.day}/${plan.totalDays} 天）</span>
+        <span>任务完成 ${pct(done.size, totalItems)}%</span></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="badge">第 ${s.month} 月 · ${esc(cur.month.title)}</span></h2>
+      <p class="hint" style="margin-top:8px">${esc(cur.block.title)}${cur.block.min ? ' · 建议 ' + esc(cur.block.min) : ''}${cur.block.goal ? ' · ' + esc(cur.block.goal) : ''}</p>
+      <ul class="checklist">
+        ${curItems.map(i => `<li><input type="checkbox" data-key="${i.key}" ${i.done ? 'checked' : ''}><label>${esc(i.txt)}</label></li>`).join('')}
+      </ul>
+      <div class="row" style="margin-top:14px">
+        <button class="btn ${checkedIn ? 'done' : 'primary'}" data-act="checkin" data-id="${plan.id}">
+          ${checkedIn ? '今天已打卡 · 点一下取消' : '今天练完了，打卡'}
+        </button>
+        <span style="font-size:12px;color:var(--muted)">累计打卡 ${ins.size} 天</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>打卡日历</h2>
+      <p class="hint">最近 8 周，橙色框是今天</p>
+      <div class="heat">${heat}</div>
+      <div class="heat-legend">连续 ${streak(ins)} 天 · 累计 ${ins.size} 天</div>
+    </div>
+
+    <div class="card">
+      <h2>12 个月地图</h2>
+      <p class="hint">当前月高亮，数字为该月的任务完成比例</p>
+      <div class="months">
+        ${plan.months.map((m, i) => {
+          const st = monthStat[i];
+          return `<div class="mcard${s.month === m.m ? ' now' : ''}">
+            <div class="m-no">第 ${m.m} 月</div>
+            <div class="m-title">${esc(m.title)}</div>
+            <div class="m-goal">${esc(m.goal || '')}</div>
+            <div class="m-pct">${st.d}/${st.t} · ${st.p}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>阶段目标</h2>
+      <div class="phases">
+        ${plan.phases.map(p => `<div class="phase"><b>${esc(p.range)}</b>${esc(p.desc)}</div>`).join('')}
+      </div>
+    </div>
+
+    ${singExtra}
+
+    <div class="card">
+      <h2>全部计划大纲</h2>
+      <p class="hint">往下翻能看到整年的内容，勾掉就一直记着</p>
+      ${plan.months.map(m => `
+        <details style="border-top:1px solid var(--line);padding:10px 0"${s.month === m.m ? ' open' : ''}>
+          <summary style="cursor:pointer;font-weight:600">第 ${m.m} 月 · ${esc(m.title)}</summary>
+          <div style="margin-top:10px">
+            ${(m.weeks || m.blocks || []).map((g, gi) => `
+              <div class="mini" style="margin-bottom:10px">
+                <b>${esc(g.label || ('Week ' + g.w))} ${esc(g.title)}</b>
+                <ul style="list-style:none;padding-left:0;margin-top:6px">
+                  ${(g.items || []).map((t, ii) => {
+                    const k = plan.id + ':' + m.m + ':' + gi + ':' + ii;
+                    return `<li style="display:flex;gap:8px;align-items:flex-start;padding:3px 0">
+                      <input type="checkbox" data-key="${k}" ${done.has(k) ? 'checked' : ''} style="margin-top:4px">
+                      <span style="font-size:13px">${esc(t)}</span></li>`;
+                  }).join('')}
+                </ul>
+              </div>`).join('')}
+          </div>
+        </details>`).join('')}
+    </div>
+
+    <div class="tools">
+      <button class="btn" data-act="export" data-id="${plan.id}">导出进度</button>
+      <button class="btn" data-act="import" data-id="${plan.id}">导入进度</button>
+      <button class="btn" data-act="reset" data-id="${plan.id}">清空该计划进度</button>
+      <input type="file" accept="application/json" style="display:none" data-file="${plan.id}">
+    </div>`;
+  return html;
+}
+
+/* ---------- 事件（全局委托） ---------- */
+document.addEventListener('change', e => {
+  const el = e.target;
+  if(el.matches('input[type=checkbox][data-key]')){
+    const id = el.getAttribute('data-key').split(':')[0];
+    const set = loadDone(id);
+    el.checked ? set.add(el.getAttribute('data-key')) : set.delete(el.getAttribute('data-key'));
+    saveDone(id, set);
+  }
+});
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-act]');
+  if(!btn) return;
+  const id = btn.getAttribute('data-id');
+  const act = btn.getAttribute('data-act');
+  if(act === 'checkin'){
+    const set = loadIn(id);
+    const k = ymd(startOfDay(today()));
+    set.has(k) ? set.delete(k) : set.add(k);
+    saveIn(id, set);
+    location.reload();
+  } else if(act === 'reset'){
+    if(confirm('确定清空「' + PLANS[id].title + '」的全部勾选和打卡记录？此操作不可恢复。')){
+      saveDone(id, new Set()); saveIn(id, new Set()); location.reload();
+    }
+  } else if(act === 'export'){
+    const data = { plan: id, exportedAt: new Date().toISOString(),
+      done: [...loadDone(id)], checkin: [...loadIn(id)] };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'}));
+    a.download = '两个计划-' + PLANS[id].title + '-进度-' + ymd(new Date()) + '.json';
+    a.click();
+  } else if(act === 'import'){
+    document.querySelector('[data-file="' + id + '"]').click();
+  }
+});
+
+document.addEventListener('change', e => {
+  const el = e.target;
+  if(el.matches('input[type=file][data-file]')){
+    const id = el.getAttribute('data-file');
+    const f = el.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const j = JSON.parse(r.result);
+        saveDone(id, new Set(j.done || []));
+        saveIn(id, new Set(j.checkin || []));
+        location.reload();
+      }catch(err){ alert('文件格式不对，导入失败。'); }
+    };
+    r.readAsText(f);
+  }
+});
+
+/* ---------- 启动 ---------- */
+function boot(planId, el){
+  const plan = PLANS[planId];
+  document.documentElement.style.setProperty('--accent', plan.accent);
+  document.documentElement.style.setProperty('--accent-soft', plan.accentSoft);
+  document.title = plan.title + ' · 两个计划';
+  el.innerHTML = renderPlan(plan);
+}
+
+function bootIOS(){
+  const order = ['study', 'sing'];
+  let active = localStorage.getItem('tp:ios:tab') || 'study';
+  document.title = '两个计划';
+  document.body.classList.add('ios', 'ios-shell');
+
+  const root = document.getElementById('app');
+  root.innerHTML = `
+    <div class="ios-title" id="iosTitle"></div>
+    <div id="panes"></div>
+    <nav class="tabbar">
+      ${order.map(id => `<button data-tab="${id}"><span class="dot"></span><span>${PLANS[id].title.slice(0, 6)}</span></button>`).join('')}
+    </nav>`;
+
+  function paint(){
+    const plan = PLANS[active];
+    document.documentElement.style.setProperty('--accent', plan.accent);
+    document.documentElement.style.setProperty('--accent-soft', plan.accentSoft);
+    document.getElementById('iosTitle').textContent = plan.title;
+    document.getElementById('panes').innerHTML = renderPlan(plan);
+    document.querySelectorAll('.tabbar button').forEach(b => {
+      b.classList.toggle('on', b.getAttribute('data-tab') === active);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelector('.tabbar').addEventListener('click', e => {
+    const b = e.target.closest('[data-tab]'); if(!b) return;
+    // 打卡/导出等按钮点击后 reload 会回到默认 tab，这里把状态写回来
+    const cur = active; active = b.getAttribute('data-tab');
+    localStorage.setItem('tp:ios:tab', active);
+    if(cur !== active) paint();
+  });
+
+  // 页面内的「打卡 / 重置 / 导入」会触发 reload，重载后恢复到当前 tab
+  const keep = () => localStorage.setItem('tp:ios:tab', active);
+  document.addEventListener('click', e => { if(e.target.closest('[data-act]')) keep(); });
+  // 勾选也持久化当前 tab
+  document.addEventListener('change', e => { if(e.target.matches('input[type=checkbox][data-key]')) keep(); });
+
+  // 勾选后实时刷新百分比（轻量重绘，不整页刷新）
+  document.addEventListener('change', e => {
+    if(!e.target.matches('input[type=checkbox][data-key]')) return;
+    keep();
+    const plan = PLANS[active];
+    const s = snap(plan);
+    const done = loadDone(plan.id);
+    const totalItems = allItemKeys(plan).length;
+    const lbl = document.querySelector('.barlabel span:last-child');
+    if(lbl) lbl.textContent = '任务完成 ' + pct(done.size, totalItems) + '%';
+  });
+
+  paint();
+}
+
+</script>
+<script>
+bootIOS();
+</script>
+</body>
+</html>

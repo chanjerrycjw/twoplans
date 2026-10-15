@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>两个计划 · 入口</title>
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="两个计划">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--line:#e6e8f0;--text:#1c1f2b;--muted:#6b7280;--accent:#4f46e5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:15px;line-height:1.65}
+.wrap{max-width:880px;margin:0 auto;padding:36px 18px 60px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.4px}
+.lead{color:var(--muted);margin:0 0 26px;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.06);transition:transform .15s ease}
+a.card:hover{transform:translateY(-2px)}
+a.card .tag{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;display:inline-block}
+a.card h2{margin:10px 0 4px;font-size:18px}
+a.card p{margin:0;color:var(--muted);font-size:13px}
+a.card .go{margin-top:14px;font-size:13px;font-weight:600}
+.t1 .tag{background:#eef2ff;color:#4f46e5}.t1 .go{color:#4f46e5}
+.t2 .tag{background:#fdf2f8;color:#db2777}.t2 .go{color:#db2777}
+.t3 .tag{background:#ecfdf5;color:#059669}.t3 .go{color:#059669}
+.card.ioscard{grid-column:1/-1}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:22px}
+section h3{margin:0 0 10px;font-size:16px}
+section ol,section ul{margin:0;padding-left:20px}
+section li{margin:5px 0}
+code{background:#f1f2f7;border-radius:5px;padding:1px 5px;font-size:13px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:13px}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>两个计划</h1>
+  <p class="lead">起算日 2026-09-25 · 一个是学计算机，一个是学唱歌 · 进度存在本机浏览器里</p>
+
+  <div class="grid">
+    <a class="card t1" href="study.html">
+      <span class="tag">计划一</span>
+      <h2>计算机基础一年成长计划</h2>
+      <p>360 个学习日 · 48 周 · 12 个月 · 约 1080 小时</p>
+      <div class="go">打开 →</div>
+    </a>
+    <a class="card t2" href="sing.html">
+      <span class="tag">计划二</span>
+      <h2>零基础流行音乐一年计划</h2>
+      <p>每天 20-60 分钟 · 从腹式呼吸到完整表演</p>
+      <div class="go">打开 →</div>
+    </a>
+    <a class="card t3 card ioscard" href="两个计划-iOS.html">
+      <span class="tag">手机版</span>
+      <h2>两个计划 · iOS 版（单文件，可加到主屏幕）</h2>
+      <p>一个 HTML 文件装完两个计划，底部双 Tab 切换，离线可用，无地址栏全屏运行</p>
+      <div class="go">打开 / 传到 iPhone →</div>
+    </a>
+  </div>
+
+  <section>
+    <h3>在 iPhone 上怎么用（越狱机也适用）</h3>
+    <ol>
+      <li>把 <code>两个计划-iOS.html</code> 传到手机 —— 隔空投送 / 微信文件传输助手 / Filza 都行。</li>
+      <li>用 <b>Safari</b> 打开它（必须是 Safari，Chrome 不能添加到主屏幕）。</li>
+      <li>点底部<b>分享</b>按钮 → <b>添加到主屏幕</b> → 右上角「添加」。</li>
+      <li>桌面出现紫色图标「两个计划」，点开就是全屏、无地址栏、离线可用的 App。</li>
+      <li>数据存在 Safari 本地，不联网；换机时用计划页里的「导出进度 / 导入进度」搬运。</li>
+    </ol>
+  </section>
+
+  <section>
+    <h3>想要真的 .ipa？</h3>
+    <p style="margin:0 0 8px">同一个目录下的 <code>ios/</code> 里有一份完整的 SwiftUI 工程（两个计划 App）+ GitHub Actions 自动打包配置，可以在云端编出未签名的 ipa，越狱机用 TrollStore / AppSync 装。详见 <code>ios/TwoPlans/README.md</code>。</p>
+    <p style="margin:0;color:var(--muted);font-size:13px">注意：iOS 原生二进制只能在 macOS + Xcode 上编译，Windows 本机编不了，所以走云编译。</p>
+  </section>
+
+  <div class="warn">
+    <b>提醒：</b>网页版的勾选和打卡只存在当前浏览器里。清了浏览器数据 / 换浏览器就没了 —— 重要节点记得点「导出进度」存一份 json。
+    原有的开机弹窗提醒（<code>D:\ai\2026-09-24\计划部署</code>）照旧生效，网页版是给「今天练什么」做检查和记录的。
+  </div>
+
+  <p class="foot">生成于 2026-10-15 · 数据源：D:\ai\2026-09-24\计划部署</p>
+</div>
+</body>
+</html>
