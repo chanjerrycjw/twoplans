@@ -5,6 +5,8 @@ options:
   bundleIdPrefix: com.local
   deploymentTarget:
     iOS: "15.0"
+  # LastUpgradeCheck 写得和 CI 上的 Xcode 一致
+  xcodeVersion: "16.0"
 targets:
   TwoPlans:
     type: application
