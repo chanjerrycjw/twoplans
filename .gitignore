@@ -12,3 +12,7 @@ _thumbs/
 *.pyc
 __pycache__/
 .DS_Store
+
+# 备份/临时文件
+*.bak-*
+hosts.bak*
